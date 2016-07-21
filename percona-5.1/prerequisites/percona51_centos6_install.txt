@@ -1,0 +1,27 @@
+# MySQL pre-requisites
+# --------------------
+yum upgrade
+yum -y install epel-release
+yum repolist
+yum install -y /install-source/Percona-Server-shared-compat-51-5.1.73-rel14.12.624.rhel6.x86_64.rpm
+yum install -y /install-source/Percona-Server-shared-51-5.1.73-rel14.12.624.rhel6.x86_64.rpm
+yum install -y /install-source/Percona-Server-client-51-5.1.73-rel14.12.624.rhel6.x86_64.rpm
+yum install -y /install-source/Percona-Server-server-51-5.1.73-rel14.12.624.rhel6.x86_64.rpm
+
+# MySQL Server
+# ------------
+# mkdir -p /var/lib/mysql/data
+mkdir -p /var/lib/mysql/binlog
+mkdir -p /var/lib/mysql/log
+mkdir -p /var/lib/mysql/innodb
+
+!!{Copy correct my.cnf into place}!!
+
+# Set MySQL root account
+# ----------------------
+mysql -uroot
+DROP SCHEMA test;
+UPDATE mysql.user set password=password('root') WHERE user='root';
+DELETE FROM mysql.user WHERE user='';
+FLUSH PRIVILEGES;
+exit
