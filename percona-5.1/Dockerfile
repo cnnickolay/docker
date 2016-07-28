@@ -22,6 +22,8 @@ RUN mkdir -p /var/lib/mysql/dat && \
     mkdir -p /var/lib/mysql/innodb && \
     chown mysql:mysql /var/lib/mysql -R
 
+RUN mkdir /bootstrap
+
 ADD my.cnf /etc/
 
 ADD prepare-db.sql /
